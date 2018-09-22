@@ -7,6 +7,7 @@ import com.elkcreek.rodneytressler.starwars.repo.network.StarWarsService;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class CacheServiceImpl implements CacheService {
 
@@ -24,7 +25,8 @@ public class CacheServiceImpl implements CacheService {
                 .flatMap(starWarsCharacters -> starWarsCharacters.get(0) == null ? Observable.error(Throwable::new) : Observable.just(starWarsCharacters))
                 .onErrorResumeNext(Observable.empty())
                 .switchIfEmpty(getStarWarsCharactersFromNetwork()
-                .map(StarWarsApi.StarWarsResponse::getStarWarsCharactersList));
+                .map(StarWarsApi.StarWarsResponse::getStarWarsCharactersList))
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override

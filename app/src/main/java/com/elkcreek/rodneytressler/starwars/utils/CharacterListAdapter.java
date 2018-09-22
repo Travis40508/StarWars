@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.elkcreek.rodneytressler.starwars.R;
 import com.elkcreek.rodneytressler.starwars.repo.network.StarWarsApi;
@@ -69,7 +71,9 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdap
             characterName.setText(starWarsCharacter.getName());
             glide
                     .setDefaultRequestOptions(RequestOptions.overrideOf(80, 80))
+                    .setDefaultRequestOptions(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.DATA))
                     .load(starWarsCharacter.getCharacterImage())
+                    .transition(DrawableTransitionOptions.withCrossFade())
                     .into(characterImage);
         }
 

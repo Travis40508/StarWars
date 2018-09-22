@@ -89,6 +89,9 @@ public class CharacterListFragment extends Fragment implements CharacterListView
         Fragment characterFragment = CharacterFragment.newInstance();
         characterFragment.setArguments(bundle);
 
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, characterFragment, Constants.CHARACTER_FRAGMENT_TAG).addToBackStack(null).commit();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
+                .replace(R.id.fragment_holder, characterFragment, Constants.CHARACTER_FRAGMENT_TAG)
+                .addToBackStack(null).commit();
     }
 }

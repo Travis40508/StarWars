@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.elkcreek.rodneytressler.starwars.R;
 import com.elkcreek.rodneytressler.starwars.repo.network.StarWarsApi;
@@ -56,6 +58,11 @@ public class CharacterFragment extends Fragment implements CharacterView {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_character, container, false);
         ButterKnife.bind(this, view);
+        if(savedInstanceState != null) {
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder,
+                    getActivity().getSupportFragmentManager().findFragmentByTag(Constants.CHARACTER_FRAGMENT_TAG), Constants.CHARACTER_FRAGMENT_TAG)
+                    .commit();
+        }
         presenter.attachView(this);
         return view;
     }
@@ -86,15 +93,18 @@ public class CharacterFragment extends Fragment implements CharacterView {
     @Override
     public void displayCharacter(StarWarsApi.StarWarsCharacter character) {
         Glide.with(this).setDefaultRequestOptions(RequestOptions.overrideOf(250, 200))
-                .load(character.getCharacterImage()).into(characterImage);
+                .setDefaultRequestOptions(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.DATA))
+                .load(character.getCharacterImage())
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(characterImage);
 
-        characterName.setText(character.getName());
-        birthYear.setText(character.getBirthYear());
-        gender.setText(character.getGender());
-        height.setText(character.getHeight());
-        mass.setText(character.getMass());
-        eyeColor.setText(character.getEyeColor());
-        hairColor.setText(character.getHairColor());
-        skinColor.setText(character.getSkinColor());
+        characterName.setText("Name: " + character.getName());
+        birthYear.setText("DOB: " + character.getBirthYear());
+        gender.setText("Gender: " + character.getGender());
+        height.setText("Height: " + character.getHeight());
+        mass.setText("Mass: " + character.getMass());
+        eyeColor.setText("Eye Color: " + character.getEyeColor());
+        hairColor.setText("Hair Color: " + character.getHairColor());
+        skinColor.setText("Skin Color:" + character.getSkinColor());
     }
 }
