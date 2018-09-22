@@ -14,9 +14,8 @@ public class StarWarsServiceImpl implements StarWarsService {
     }
 
     @Override
-    public Observable<List<StarWarsApi.StarWarsCharacter>> getStarWarsCharacter() {
+    public Observable<StarWarsApi.StarWarsResponse> getStarWarsCharacters() {
         return starWarsApi.getStarWarsCharacters()
-                .subscribeOn(Schedulers.io())
-                .map(StarWarsApi.StarWarsResponse::getStarWarsCharactersList);
+                .subscribeOn(Schedulers.io());
     }
 }

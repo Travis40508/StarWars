@@ -6,5 +6,5 @@ import io.reactivex.Observable;
 
 public interface StarWarsService {
 
-    Observable<List<StarWarsApi.StarWarsCharacter>> getStarWarsCharacter();
+    Observable<StarWarsApi.StarWarsResponse> getStarWarsCharacters();
 }

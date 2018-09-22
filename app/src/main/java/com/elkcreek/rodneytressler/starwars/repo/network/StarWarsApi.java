@@ -16,7 +16,7 @@ import retrofit2.http.GET;
 
 public interface StarWarsApi {
 
-    @GET
+    @GET("project.json")
     Observable<StarWarsResponse> getStarWarsCharacters();
 
 
