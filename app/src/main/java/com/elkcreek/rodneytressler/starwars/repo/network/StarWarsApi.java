@@ -2,7 +2,10 @@ package com.elkcreek.rodneytressler.starwars.repo.network;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverter;
+import android.arch.persistence.room.TypeConverters;
 
+import com.elkcreek.rodneytressler.starwars.repo.database.StarWarsTypeConverters;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -18,11 +21,12 @@ public interface StarWarsApi {
 
 
     @Entity
-    class StarWarsResponse {
+    public class StarWarsResponse {
 
         @PrimaryKey(autoGenerate = true)
         private int primaryKey;
 
+        @TypeConverters(StarWarsTypeConverters.class)
         @SerializedName("results")
         @Expose private List<StarWarsCharacter> starWarsCharactersList;
 
@@ -44,7 +48,7 @@ public interface StarWarsApi {
     }
 
     @Entity
-    class StarWarsCharacter {
+    public class StarWarsCharacter {
         @PrimaryKey(autoGenerate = true)
         private int primaryKey;
 
