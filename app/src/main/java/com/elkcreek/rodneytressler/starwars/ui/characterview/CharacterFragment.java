@@ -1,4 +1,6 @@
 package com.elkcreek.rodneytressler.starwars.ui.characterview;
 
-public class CharacterFragment {
+import android.support.v4.app.Fragment;
+
+public class CharacterFragment extends Fragment {
 }
