@@ -14,7 +14,9 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.elkcreek.rodneytressler.starwars.R;
 import com.elkcreek.rodneytressler.starwars.repo.network.StarWarsApi;
+import com.elkcreek.rodneytressler.starwars.ui.characterview.CharacterFragment;
 import com.elkcreek.rodneytressler.starwars.utils.CharacterListAdapter;
+import com.elkcreek.rodneytressler.starwars.utils.Constants;
 
 import java.util.List;
 
@@ -82,6 +84,11 @@ public class CharacterListFragment extends Fragment implements CharacterListView
     }
 
     private void goToCharacterScreen(StarWarsApi.StarWarsCharacter character) {
-        
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constants.CHARACTER_TAG, character);
+        Fragment characterFragment = CharacterFragment.newInstance();
+        characterFragment.setArguments(bundle);
+
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, characterFragment, Constants.CHARACTER_FRAGMENT_TAG).addToBackStack(null).commit();
     }
 }
