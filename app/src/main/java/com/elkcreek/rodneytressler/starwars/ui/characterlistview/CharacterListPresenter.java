@@ -41,9 +41,7 @@ public class CharacterListPresenter implements BasePresenter<CharacterListView> 
 
     private Consumer<List<StarWarsApi.StarWarsCharacter>> updateUiWithStarWarsCharacters() {
         return starWarsCharacters -> {
-          for(StarWarsApi.StarWarsCharacter item : starWarsCharacters) {
-              Log.d("@@@@@", item.getName());
-          }
+          view.showStarWarsCharacterList(starWarsCharacters);
         };
     }
 
